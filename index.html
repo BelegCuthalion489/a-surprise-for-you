@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Happy Birthday</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080402}
+body{font-family:Georgia,"Times New Roman",serif}
+.backdrop{position:fixed;inset:-30px;background:center/cover no-repeat url("cake-desktop.png");filter:blur(25px) brightness(.3);transform:scale(1.08)}
+.stage{position:fixed;left:50%;top:50%;width:max(100vw,calc(100vh * 1.806));height:max(100vh,calc(100vw / 1.806));transform:translate(-50%,-50%);overflow:hidden}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
+.ambient{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 36%,rgba(255,178,80,.10),transparent 52%)}
+.glow{position:absolute;z-index:4;width:31%;aspect-ratio:1;border-radius:50%;pointer-events:none;mix-blend-mode:screen;filter:blur(16px);background:radial-gradient(circle,rgba(255,238,183,.32),rgba(255,142,35,.14) 34%,transparent 70%);transition:opacity .8s}
+.g2{left:27%;top:7%}.g1{left:43%;top:7%}
+.wick-flame{position:absolute;z-index:12;width:1.9%;height:7.5%;transform:translate(-50%,-100%);transform-origin:50% 100%;pointer-events:none}
+.f2{left:43.05%;top:23.35%}.f1{left:57.00%;top:23.35%}
+.fire{position:absolute;inset:0;border-radius:50% 50% 43% 57%/69% 69% 31% 31%;background:radial-gradient(ellipse at 50% 73%,#fff 0 13%,#fffbd0 14% 27%,#ffe26a 31%,#ffb126 47%,#ff7c17 64%,#f24a08 77%,rgba(255,70,0,.02) 89%);box-shadow:0 0 8px #fffbd0,0 0 20px rgba(255,181,53,.92),0 0 42px rgba(255,105,15,.7);animation:flicker .42s infinite alternate ease-in-out}
+.fire:after{content:"";position:absolute;left:39%;bottom:0;width:23%;height:27%;border-radius:50%;background:#6384ff;filter:blur(1px)}
+@keyframes flicker{0%{transform:rotate(-2deg) scale(.95,1.06)}50%{transform:rotate(1deg) scale(1.03,.98)}100%{transform:rotate(2deg) scale(.97,1.08)}}
+.smoke{position:absolute;left:50%;bottom:0;width:8px;height:8px;border-radius:50%;background:rgba(225,220,211,.62);filter:blur(4px);opacity:0}
+.wick-flame.out .fire{animation:die .55s ease-out forwards}.wick-flame.out .smoke{animation:smoke 2s .2s ease-out forwards}
+@keyframes die{0%{opacity:1}50%{opacity:.5;transform:rotate(25deg) scale(.55,.35)}100%{opacity:0;transform:scale(.02)}}
+@keyframes smoke{0%{opacity:.5;transform:translate(-50%,0) scale(.5)}50%{opacity:.25;transform:translate(-100%,-42px) scale(2)}100%{opacity:0;transform:translate(15%,-100px) scale(4)}}
+.wick-flame.relighting .fire{animation:relight 3s ease-in-out forwards}
+@keyframes relight{0%{opacity:0;transform:scale(.02)}45%{opacity:.25;transform:scale(.3)}75%{opacity:.7;transform:scale(.75)}100%{opacity:1;transform:scale(1)}}
+.candle{position:absolute;z-index:15;border:0;background:transparent;cursor:pointer}.c2{left:35.5%;top:19.5%;width:14%;height:29%}.c1{left:51%;top:19.5%;width:12%;height:29%}
+.shade{position:absolute;inset:0;z-index:20;pointer-events:none;opacity:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.7),rgba(0,0,0,.45) 40%,rgba(0,0,0,.12) 72%);transition:opacity 1.7s}.shade.show{opacity:1}
+.message{position:fixed;inset:0;z-index:21;display:grid;place-items:center;pointer-events:none;opacity:0;transform:scale(.9);filter:blur(7px);transition:opacity 1.7s,transform 1.7s,filter 1.7s}.message.show{opacity:1;transform:scale(1);filter:blur(0)}.message.fade{opacity:0;transform:scale(1.03);filter:blur(5px)}
+.card{text-align:center;width:min(92vw,1000px);padding:20px}.title{color:#ffe8ad;font-size:clamp(48px,7vw,105px);line-height:1;text-shadow:0 0 14px #ffb54a,0 0 42px rgba(255,133,25,.5),0 5px 20px #000}.personal{margin:26px auto 0;color:#fff3d2;font-size:clamp(17px,2vw,29px);line-height:1.45;text-shadow:0 3px 12px #000}.hug{display:inline-block;margin-top:20px;padding-top:14px;border-top:1px solid rgba(255,226,158,.7);color:#f7dfaa;font-size:clamp(13px,1.35vw,20px);text-shadow:0 2px 10px #000}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:30;pointer-events:none}
+
+/* Portrait phones/tablets use the dedicated 2:3 artwork and its own measured wick coordinates. */
+@media (orientation:portrait){
+ .backdrop{background-image:url("cake-mobile.png")}
+ .stage{width:100vw;height:150vw;max-height:100vh;max-width:66.667vh}
+ .bg{content:url("cake-mobile.png")}
+ .f2{left:41.70%;top:31.05%}.f1{left:61.91%;top:31.10%}
+ .wick-flame{width:3.25%;height:6.5%}
+ .c2{left:32%;top:27%;width:19%;height:21%}.c1{left:53.5%;top:27%;width:17%;height:21%}
+ .g2{left:19%;top:17%;width:45%}.g1{left:40%;top:17%;width:45%}
+ .card{width:94vw;padding:12px}.title{font-size:clamp(40px,12vw,70px)}.personal{font-size:clamp(14px,4.2vw,20px);margin-top:18px}.hug{font-size:clamp(11px,3.3vw,16px);margin-top:13px;padding-top:10px}
+}
+</style></head>
+<body>
+<div class="backdrop"></div>
+<div class="stage">
+ <img class="bg" src="cake-desktop.png" alt="Chocolate birthday cake for Agu">
+ <div class="ambient"></div><div class="glow g2" id="g2"></div><div class="glow g1" id="g1"></div>
+ <div class="wick-flame f2" id="f2"><span class="fire"></span><span class="smoke"></span></div>
+ <div class="wick-flame f1" id="f1"><span class="fire"></span><span class="smoke"></span></div>
+ <button class="candle c2" data-flame="f2" data-glow="g2" aria-label="Blow out candle 2"></button>
+ <button class="candle c1" data-flame="f1" data-glow="g1" aria-label="Blow out candle 1"></button>
+ <div class="shade" id="shade"></div>
+</div>
+<div class="message" id="message"><div class="card"><div class="title">Happy Birthday Agu!</div><div class="personal">I'm really happy that you're in my life<br>Enjoy your birthday and keep being the best!</div><div class="hug">I own you a happy birthday hug :)</div></div></div>
+<canvas id="fx"></canvas>
+<script>
+const candles=[...document.querySelectorAll('.candle')];
+const message=document.getElementById('message');
+const shade=document.getElementById('shade');
+let blown=0, locked=false;
+
+candles.forEach(c=>{
+  c.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(locked || c.classList.contains('out')) return;
+
+    c.classList.add('out');
+    document.getElementById(c.dataset.flame).classList.add('out');
+    document.getElementById(c.dataset.glow).style.opacity='0';
+    blown++;
+    burst(e.clientX,e.clientY,45);
+
+    if(blown===2){
+      locked=true;
+      setTimeout(()=>{
+        shade.classList.add('show');
+        message.classList.remove('fade');
+        message.classList.add('show');
+        celebrationBurst(innerWidth*.04,innerHeight*.58,220,1);
+        celebrationBurst(innerWidth*.96,innerHeight*.58,220,-1);
+        burst(innerWidth*.5,innerHeight*.20,150);
+        setTimeout(reset,10000);
+      },750);
+    }
+  });
+});
+
+function reset(){
+  message.classList.remove('show');
+  message.classList.add('fade');
+  shade.classList.remove('show');
+
+  candles.forEach(c=>{
+    c.classList.remove('out');
+    const f=document.getElementById(c.dataset.flame);
+    f.classList.remove('out');
+    f.classList.add('relighting');
+    const g=document.getElementById(c.dataset.glow);
+    g.style.transition='opacity 3s ease';
+    g.style.opacity='1';
+  });
+
+  setTimeout(()=>{
+    candles.forEach(c=>{
+      document.getElementById(c.dataset.flame).classList.remove('relighting');
+    });
+    message.classList.remove('fade');
+    blown=0;
+    locked=false;
+  },3000);
+}
+
+const canvas=document.getElementById('fx');
+const ctx=canvas.getContext('2d');
+let particles=[];
+
+function resizeCanvas(){
+  const dpr=Math.min(devicePixelRatio||1,2);
+  canvas.width=Math.round(innerWidth*dpr);
+  canvas.height=Math.round(innerHeight*dpr);
+  canvas.style.width=innerWidth+'px';
+  canvas.style.height=innerHeight+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+resizeCanvas();
+addEventListener('resize',resizeCanvas);
+
+function burst(x,y,n=30){
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2;
+    const s=2+Math.random()*7;
+    particles.push({
+      x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,
+      g:.12,life:50+Math.random()*40,size:2+Math.random()*5,
+      hue:25+Math.random()*330
+    });
+  }
+}
+
+function celebrationBurst(x,y,n,dir){
+  const hues=[0,25,45,95,180,220,280,325];
+  for(let i=0;i<n;i++){
+    const s=5+Math.random()*10;
+    particles.push({
+      x,y,
+      vx:dir*(3+Math.random()*10),
+      vy:-4-Math.random()*10,
+      g:.16,life:85+Math.random()*55,size:5+Math.random()*10,
+      hue:hues[Math.floor(Math.random()*hues.length)]
+    });
+  }
+}
+
+/* Confetti at every click, including non-candle clicks. */
+addEventListener('click',e=>burst(e.clientX,e.clientY,28));
+
+/* Golden mouse magic dust. */
+addEventListener('pointermove',e=>{
+  if(e.pointerType!=='mouse') return;
+  for(let i=0;i<3;i++){
+    particles.push({
+      x:e.clientX+(Math.random()-.5)*10,
+      y:e.clientY+(Math.random()-.5)*10,
+      vx:(Math.random()-.5)*.8,
+      vy:-.35-Math.random()*.9,
+      g:.008,life:22+Math.random()*22,size:1+Math.random()*2.8,
+      hue:38+Math.random()*16
+    });
+  }
+});
+
+(function draw(){
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  particles=particles.filter(p=>p.life>0);
+  for(const p of particles){
+    p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.life--;
+    ctx.globalAlpha=Math.min(1,p.life/18);
+    ctx.fillStyle=`hsl(${p.hue} 100% 67%)`;
+    ctx.shadowBlur=10;
+    ctx.shadowColor=ctx.fillStyle;
+    ctx.fillRect(p.x,p.y,p.size,p.size);
+  }
+  ctx.globalAlpha=1;
+  ctx.shadowBlur=0;
+  requestAnimationFrame(draw);
+})();
+</script></body></html>
